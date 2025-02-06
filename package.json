@@ -1,8 +1,8 @@
 {
   "name": "sv-instance-generator",
   "displayName": "SV Instance Generator",
-  "description": "SystemVerilogのmoduleコードからインスタンス化コードを生成し、クリップボードにコピーする拡張機能",
-  "version": "0.0.1",
+  "description": "Generates instance code from SystemVerilog module definitions and copies it to the clipboard.",
+  "version": "1.0.0",
   "engines": {
     "vscode": "^1.70.0"
   },
@@ -36,5 +36,10 @@
     "eslint": "^8.0.0",
     "typescript": "^4.0.0",
     "vscode-test": "^1.6.0"
-  }
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Broccoly96/sv-instance-generator.git"
+  },
+  "license": "MIT"
 }

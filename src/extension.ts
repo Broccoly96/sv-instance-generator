@@ -4,7 +4,7 @@ export function activate(context: vscode.ExtensionContext) {
   let disposable = vscode.commands.registerCommand('sv-instance-generator.instance', async () => {
     const editor = vscode.window.activeTextEditor;
     if (!editor) {
-      vscode.window.showErrorMessage('エディタが開かれていません。');
+      vscode.window.showErrorMessage('No editor is active.');
       return;
     }
     const document = editor.document;
@@ -12,9 +12,9 @@ export function activate(context: vscode.ExtensionContext) {
 
     try {
       const instanceCode = generateInstanceFromSV(code);
-      // クリップボードにコピー
+      // Copy to clipboard
       await vscode.env.clipboard.writeText(instanceCode);
-      vscode.window.showInformationMessage('インスタンス化コードをクリップボードにコピーしました。');
+      vscode.window.showInformationMessage('Instance code has been copied to the clipboard.');
     } catch (error: any) {
       vscode.window.showErrorMessage(error.message);
     }
@@ -26,11 +26,11 @@ export function activate(context: vscode.ExtensionContext) {
 export function deactivate() {}
 
 /**
- * SystemVerilog のコードからモジュール定義を抽出し、
- * インスタンス化コードを生成して返す。
+ * Extracts the module definition from SystemVerilog code,
+ * generates instance code and returns it.
  */
 function generateInstanceFromSV(code: string): string {
-  // コメント除去: シングルラインとブロックコメント
+  // Remove comments: both single-line and block comments
   code = removeComments(code);
 
   const { modName, portListStr } = extractModuleInfo(code);
@@ -40,25 +40,25 @@ function generateInstanceFromSV(code: string): string {
 }
 
 /**
- * シングルライン（//）およびブロックコメント（/* ... *​/）を除去する。
+ * Removes single-line (//) and block (/* ... *​/) comments.
  */
 function removeComments(code: string): string {
-  // シングルラインコメント
+  // Remove single-line comments
   code = code.replace(/\/\/.*$/gm, '');
-  // ブロックコメント（非貪欲マッチ）
+  // Remove block comments (non-greedy match)
   code = code.replace(/\/\*[\s\S]*?\*\//g, '');
   return code;
 }
 
 /**
- * ANSIスタイルの module 宣言からモジュール名と括弧内ポートリストを抽出する。
- * 例: module my_module ( ... );
+ * Extracts the module name and the port list string from an ANSI-style module declaration.
+ * Example: module my_module ( ... );
  */
 function extractModuleInfo(code: string): { modName: string, portListStr: string } {
   const modRegex = /\bmodule\s+(\w+)\s*\(([\s\S]*?)\)\s*;/;
   const match = modRegex.exec(code);
   if (!match) {
-    throw new Error('module定義が見つかりませんでした。');
+    throw new Error('Module definition not found.');
   }
   const modName = match[1];
   const portListStr = match[2];
@@ -66,12 +66,12 @@ function extractModuleInfo(code: string): { modName: string, portListStr: string
 }
 
 /**
- * 括弧内のポート定義文字列から、カンマ区切りで各ポート定義を抽出し、
- * 各定義の最後のトークンをポート名として返す。
+ * Parses the port list string by splitting on commas and trimming extra spaces.
+ * For each port definition, returns the last token as the port name.
  */
 function parsePorts(portListStr: string): string[] {
   const ports: string[] = [];
-  // カンマ区切りで分割し、余計な空白を除去
+  // Split by comma and trim extra spaces
   const portEntries = portListStr.split(',')
     .map(entry => entry.trim())
     .filter(entry => entry.length > 0);
@@ -81,7 +81,7 @@ function parsePorts(portListStr: string): string[] {
     if (tokens.length === 0) {
       continue;
     }
-    // 最後のトークンがポート名。末尾の不要な記号も除去する。
+    // The last token is considered the port name; remove any trailing characters such as ')' or ';'
     let portName = tokens[tokens.length - 1].replace(/[);]/g, '');
     ports.push(portName);
   }
@@ -89,23 +89,24 @@ function parsePorts(portListStr: string): string[] {
 }
 
 /**
- * インスタンス化コードを生成する。
+ * Generates the instance code.
  *
- * 生成例:
+ * Example output:
  *   my_module u_my_module (
  *     .clk      (),
  *     .rst_n    (),
  *     .data_out ()
  *   );
  *
- * 条件:
- * - インスタンス名は u_[module名]
- * - ポートの順序は module 定義の順番そのまま
- * - インデントはスペース2個
- * - 各ポート行は「.<port名><パディング> ()」とし、一番長いポート名に合わせて()の位置を揃える
+ * Conditions:
+ * - The instance name is "u_[module name]".
+ * - Port order is preserved as defined in the module.
+ * - Indentation uses two spaces.
+ * - Each port line is formatted as ".<portName><padding> ()", where the padding is adjusted
+ *   so that the "()" are aligned based on the longest port name.
  */
 function generateInstance(modName: string, ports: string[]): string {
-  // 最大ポート名の長さを取得
+  // Get the maximum length among port names
   const maxPortLength = ports.reduce((max, p) => Math.max(max, p.length), 0);
   const lines: string[] = [];
   lines.push(`${modName} u_${modName} (`);

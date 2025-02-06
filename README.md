@@ -1,71 +1,63 @@
-# sv-instance-generator README
+# sv-instance-generator
 
-This is the README for your extension "sv-instance-generator". After writing up a brief description, we recommend including the following sections.
+**sv-instance-generator** is a VS Code extension that automatically generates instance code from SystemVerilog module definitions and copies it to the clipboard. This helps streamline the process of instantiating modules in higher-level designs.
 
 ## Features
 
-Describe specific features of your extension including screenshots of your extension in action. Image paths are relative to this README file.
+- **Automatic Parsing**
+  Extracts the module name and port list from ANSI-style SystemVerilog module definitions.
 
-For example if there is an image subfolder under your extension project workspace:
+- **Code Generation**
+  Generates instance code where the instance name is prefixed with `u_` (i.e., `u_[module name]`). The port connections are left blank, and the position of the `()` for each port is aligned based on the longest port name with appropriate padding.
 
-\!\[feature X\]\(images/feature-x.png\)
+- **Clipboard Copy**
+  Automatically copies the generated instance code to the clipboard, allowing you to paste it directly into your higher-level module.
 
-> Tip: Many popular extensions utilize animations. This is an excellent way to show off your extension! We recommend short, focused animations that are easy to follow.
+*Tip: You can add screenshots or animations here to showcase your extension in action.*
 
 ## Requirements
 
-If you have any requirements or dependencies, add a section describing those and how to install and configure them.
+- **SystemVerilog Modules**
+  This extension works with SystemVerilog files containing ANSI-style module definitions.
+
+- **VS Code (version 1.70 or later recommended)**
+  The extension requires a recent version of VS Code for optimal functionality.
 
 ## Extension Settings
 
-Include if your extension adds any VS Code settings through the `contributes.configuration` extension point.
-
-For example:
-
-This extension contributes the following settings:
-
-* `myExtension.enable`: Enable/disable this extension.
-* `myExtension.thing`: Set to `blah` to do something.
+Currently, **sv-instance-generator** does not provide any user-specific settings. Future releases may include customization options.
 
 ## Known Issues
 
-Calling out known issues can help limit users opening duplicate issues against your extension.
+- The current implementation depends on ANSI-style module definitions and may not work correctly with other coding styles.
+- Complex port definitions might occasionally cause parsing issues.
+
+If you encounter any problems, please report them on the [GitHub Issues page](https://github.com/yourusername/sv-instance-generator/issues).
 
 ## Release Notes
 
-Users appreciate release notes as you update your extension.
-
 ### 1.0.0
 
-Initial release of ...
-
-### 1.0.1
-
-Fixed issue #.
-
-### 1.1.0
-
-Added features X, Y, and Z.
+- **Initial Release**
+  Implemented functionality to generate instance code from SystemVerilog modules and automatically copy it to the clipboard.
 
 ---
 
-## Following extension guidelines
+## Following Extension Guidelines
 
-Ensure that you've read through the extensions guidelines and follow the best practices for creating your extension.
-
-* [Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines)
+This extension was developed in accordance with the [Visual Studio Code Extension Guidelines](https://code.visualstudio.com/api/references/extension-guidelines).
 
 ## Working with Markdown
 
-You can author your README using Visual Studio Code. Here are some useful editor keyboard shortcuts:
+You can use the built-in Markdown editor in VS Code to edit and preview this README.
 
-* Split the editor (`Cmd+\` on macOS or `Ctrl+\` on Windows and Linux).
-* Toggle preview (`Shift+Cmd+V` on macOS or `Shift+Ctrl+V` on Windows and Linux).
-* Press `Ctrl+Space` (Windows, Linux, macOS) to see a list of Markdown snippets.
+- **Split Editor:** `Ctrl+\` (Windows/Linux) or `Cmd+\` (macOS)
+- **Toggle Preview:** `Shift+Ctrl+V` (Windows/Linux) or `Shift+Cmd+V` (macOS)
+- **Markdown Snippets:** Press `Ctrl+Space` to view available Markdown snippets.
 
-## For more information
+## For More Information
 
-* [Visual Studio Code's Markdown Support](http://code.visualstudio.com/docs/languages/markdown)
-* [Markdown Syntax Reference](https://help.github.com/articles/markdown-basics/)
+- [Visual Studio Code Documentation](https://code.visualstudio.com/docs)
+- [VS Code API Reference](https://code.visualstudio.com/api)
 
-**Enjoy!**
+**Enjoy using sv-instance-generator!**
