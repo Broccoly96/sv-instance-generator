@@ -4,6 +4,11 @@ All notable changes to the "sv-instance-generator" extension will be documented 
 
 Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how to structure this file.
 
+## [1.1.0]
+
+- Changed command naming
+- Added usage to README
+
 ## [1.0.0]
 
 - Changed comment/message language from Japanese to English

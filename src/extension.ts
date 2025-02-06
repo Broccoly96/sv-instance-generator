@@ -1,7 +1,7 @@
 import * as vscode from 'vscode';
 
 export function activate(context: vscode.ExtensionContext) {
-  let disposable = vscode.commands.registerCommand('sv-instance-generator.instance', async () => {
+  let disposable = vscode.commands.registerCommand('sv-instance-generator.generateInstance', async () => {
     const editor = vscode.window.activeTextEditor;
     if (!editor) {
       vscode.window.showErrorMessage('No editor is active.');

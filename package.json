@@ -2,7 +2,7 @@
   "name": "sv-instance-generator",
   "displayName": "SV Instance Generator",
   "description": "Generates instance code from SystemVerilog module definitions and copies it to the clipboard.",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "engines": {
     "vscode": "^1.70.0"
   },
@@ -16,8 +16,8 @@
   "contributes": {
     "commands": [
       {
-        "command": "sv-instance-generator.instance",
-        "title": "Instance"
+        "command": "sv-instance-generator.generateInstance",
+        "title": "SV instance Generator: Generate Instance"
       }
     ]
   },

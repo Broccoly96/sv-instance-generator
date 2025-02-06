@@ -26,7 +26,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.deactivate = exports.activate = void 0;
 const vscode = __importStar(require("vscode"));
 function activate(context) {
-    let disposable = vscode.commands.registerCommand('sv-instance-generator.instance', async () => {
+    let disposable = vscode.commands.registerCommand('sv-instance-generator.generateInstance', async () => {
         const editor = vscode.window.activeTextEditor;
         if (!editor) {
             vscode.window.showErrorMessage('No editor is active.');
